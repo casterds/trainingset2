@@ -10,11 +10,7 @@ interface IERC721 is IERC165 {
 
     function ownerOf(uint tokenId) external view returns (address owner);
 
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint tokenId
-    ) external;
+    function safeTransferFrom(address from, address to, uint tokenId) external;
 
     function safeTransferFrom(
         address from,
@@ -23,11 +19,7 @@ interface IERC721 is IERC165 {
         bytes calldata data
     ) external;
 
-    function transferFrom(
-        address from,
-        address to,
-        uint tokenId
-    ) external;
+    function transferFrom(address from, address to, uint tokenId) external;
 
     function approve(address to, uint tokenId) external;
 
@@ -35,10 +27,10 @@ interface IERC721 is IERC165 {
 
     function setApprovalForAll(address operator, bool _approved) external;
 
-    function isApprovedForAll(address owner, address operator)
-        external
-        view
-        returns (bool);
+    function isApprovedForAll(
+        address owner,
+        address operator
+    ) external view returns (bool);
 }
 
 interface IERC721Receiver {
@@ -52,7 +44,11 @@ interface IERC721Receiver {
 
 contract ERC721 is IERC721 {
     event Transfer(address indexed from, address indexed to, uint indexed id);
-    event Approval(address indexed owner, address indexed spender, uint indexed id);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint indexed id
+    );
     event ApprovalForAll(
         address indexed owner,
         address indexed operator,
@@ -74,7 +70,9 @@ contract ERC721 is IERC721 {
     //Mappping transfer Numbers
     mapping(uint => uint) public transfers;
 
-    function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) external pure returns (bool) {
         return
             interfaceId == type(IERC721).interfaceId ||
             interfaceId == type(IERC165).interfaceId;
@@ -122,35 +120,32 @@ contract ERC721 is IERC721 {
             spender == _approvals[id]);
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint id
-    ) public {
+    function transferFrom(address from, address to, uint id) public {
         require(from == _ownerOf[id], "from != owner");
         require(to != address(0), "transfer to zero address");
-        require(transfers[id]==0);
+        require(transfers[id] == 0);
         require(_isApprovedOrOwner(from, msg.sender, id), "not authorized");
 
         _balanceOf[from]--;
         _balanceOf[to]++;
         _ownerOf[id] = to;
-        transfers[id]=1;
+        transfers[id] = 1;
         delete _approvals[id];
 
         emit Transfer(from, to, id);
     }
 
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint id
-    ) external {
+    function safeTransferFrom(address from, address to, uint id) external {
         transferFrom(from, to, id);
 
         require(
             to.code.length == 0 ||
-                IERC721Receiver(to).onERC721Received(msg.sender, from, id, "") ==
+                IERC721Receiver(to).onERC721Received(
+                    msg.sender,
+                    from,
+                    id,
+                    ""
+                ) ==
                 IERC721Receiver.onERC721Received.selector,
             "unsafe recipient"
         );
@@ -166,7 +161,12 @@ contract ERC721 is IERC721 {
 
         require(
             to.code.length == 0 ||
-                IERC721Receiver(to).onERC721Received(msg.sender, from, id, data) ==
+                IERC721Receiver(to).onERC721Received(
+                    msg.sender,
+                    from,
+                    id,
+                    data
+                ) ==
                 IERC721Receiver.onERC721Received.selector,
             "unsafe recipient"
         );
@@ -175,7 +175,7 @@ contract ERC721 is IERC721 {
     function _mint(address to, uint id) internal {
         require(to != address(0), "mint to zero address");
         require(_ownerOf[id] == address(0), "already minted");
-        transfers[id]=0;
+        transfers[id] = 0;
         _balanceOf[to]++;
         _ownerOf[id] = to;
 

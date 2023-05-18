@@ -43,16 +43,16 @@ const MintDAO = () => {
    getData();
 
     return ( 
-        <div className='flex flex-col w-screen h-screen bg-hero items-center justify-center ' >
-            <div className='flex flex-col w-fit h-fit p-6 items-center justify-center text-white rounded-2xl border-2 border-opacity-20' >
+        <div className='flex flex-col items-center justify-center w-screen h-screen bg-hero ' >
+            <div className='flex flex-col items-center justify-center p-6 text-white border-2 w-fit h-fit rounded-2xl border-opacity-20' >
                 <label className='text-3xl font-bold' >Onboard your Compay with SOUL BOUND TOKENS</label>
                 <br/>
                 <label className='text-2xl text-center' >Unique identity for Everyone</label>
                 <hr/>
-                <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Company Name' onChange={(e)=>setDaoname(e.target.value)} />
-                <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Stream Admin' value={account} />
-                <input className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Add Token ID' onChange={(e)=>setId(e.target.value)} />
-                <button className='w-full h-fit mt-6 bg-white text-slate-900 rounded-xl p-3' onClick={()=>mintsbt(id)} >Mint SBT</button>
+                <input  className='w-full p-3 mt-6 bg-transparent border-2 h-fit border-opacity-10 rounded-xl ' placeholder='Company Name' onChange={(e)=>setDaoname(e.target.value)} />
+                <input  className='w-full p-3 mt-6 bg-transparent border-2 h-fit border-opacity-10 rounded-xl ' placeholder='Stream Admin' value={account} />
+                <input className='w-full p-3 mt-6 bg-transparent border-2 h-fit border-opacity-10 rounded-xl ' placeholder='Add Token ID' onChange={(e)=>setId(e.target.value)} />
+                <button className='w-full p-3 mt-6 bg-white h-fit text-slate-900 rounded-xl' onClick={()=>mintsbt(id)} >Mint SBT</button>
                 <div className='mt-10' >
                 </div>
             </div>

@@ -8,7 +8,7 @@ import Withdraw from '../components/Withdraw';
 
 const Individual = () => {
     return ( 
-        <div className='flex flex-row w-screen h-screen items-center bg-hero' >
+        <div className='flex flex-row items-center w-screen h-screen bg-hero' >
             <div className='flex flex-col w-[60%]' >
             <IncomingStream/>
             <OutgoingTransfers/>
