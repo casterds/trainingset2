@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract RequestNetwork {
+contract RequestContract {
     // This struct defines the PaymentRequest object that contains information about a payment request.
     struct PaymentRequest {
         address requester; // Address of the user who created the payment request.
